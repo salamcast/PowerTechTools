@@ -1,0 +1,67 @@
+<div  ng-controller="curcuits">
+    <div class="scrollable">
+        <div class="scrollable-content">
+            <div class="panel-group" id="accordion">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" toggle target="curicuts">
+                        <h4 class="panel-title">How many Circuits do I need?</h4>
+                    </div>
+                    <div id="curicuts" toggleable active-class="in" exclusion-group="accordion1" default="active" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form>
+                                <div class="list-group">
+                                    <div class="row list-group-item">
+
+                                    </div>
+                                    <a href="" ng-click="solve()" class="row list-group-item">Solve</a>
+                                    <a href="" ng-click="zero_calc()" class="row list-group-item">Clear</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" toggle target="item">
+                        <h4 class="panel-title">Powered Items</h4>
+                    </div>
+                    <div id="item" toggleable active-class="in" exclusion-group="accordion1" default="active" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class="row list-group-item">
+                                    <label >{{ pitem.id.label}}</label><input  ng-model="pitem.id.new"   type="text" />
+                                </div>
+                                <div class="row list-group-item">
+                                    <label >{{ pitem.volt.label}}</label> <input ng-model="pitem.volt.new"  ng-change="check_num()" type="number" value="0"/>
+                                    <label >{{ pitem.amp.label}}</label> <input ng-model="pitem.amp.new"  ng-change="check_num()" type="number" value="0"/>
+                                    <label >{{ pitem.watt.label}}</label> <input ng-model="pitem.watt.new"  ng-change="check_num()" type="number" value="0"/>
+                                </div>
+                                <a href="" ng-click="addItem()" class="btn  btn-lg row list-group-item">Add Powered Item</a>
+                                <a class="btn  btn-lg row list-group-item" href="" ng-click="deleteItem()" >Removes Selected Items</a>
+
+                                <div class="row list-group-item">
+                                    <span class="col-xs-1 powered_item"></span>
+                                    <span class="col-xs-1 powered_item">ID</span>
+                    
+                                    <span class="col-xs-1 powered_item">Volts</span>
+                                    <span class="col-xs-1 powered_item">Amps</span>
+                                    <span class="col-xs-1 powered_item">Power</span>
+
+                                </div>
+
+                                <div class="row list-group-item" ng-repeat="i in powered_items">
+                                    <span class="col-xs-1 powered_item"><input class=" checkbox" type="checkbox" data-ng-model="i.delete"/></span>
+                                    <span class="col-xs-1 powered_item" >{{ i.id}}</span>
+                                    <span class="col-xs-1 powered_item">{{ i.volt}}</span>
+                                    <span class="col-xs-1 powered_item">{{ i.amp}}</span>
+                                    <span class="col-xs-1 powered_item">{{ i.watt}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

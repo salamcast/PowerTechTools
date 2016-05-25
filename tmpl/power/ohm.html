@@ -1,0 +1,150 @@
+<div  ng-controller="ohmslaw">
+    <div class="scrollable">
+        <div class="scrollable-content">
+            <div class="list-group">
+                <div class="row list-group-item">
+
+                </div>
+                <div class="row list-group-item"><h4 class="panel-title">Ohm's Law Solver</h4> </div>
+                <div class="row list-group-item">
+                    <label >{{ unit.volt.label}}</label>
+                    <input  ng-model="volt" id="{{ unit.volt.id}}" ng-change="check_num()" type="number" value="0"/>
+                    <label >{{ unit.amp.label}}</label>
+                    <input ng-model="amp" id="{{ unit.amp.id}}" ng-change="check_num()" type="number" value="0"/>
+                </div>
+                <div class="row list-group-item">
+                    <label >{{ unit.ohm.label}}</label>
+                    <input ng-model="ohm" id="{{ unit.ohm.id}}" ng-change="check_num()" type="number" value="0"/>
+                    <label >{{ unit.watt.label}}</label>
+                    <input  ng-model="watt" id="{{ unit.watt.id}}" ng-change="check_num()" type="number" value="0"/>
+                </div>
+                <a href="" ng-click="solve()" class="btn  btn-lg row list-group-item">Solve</a>
+                <a href="" ng-click="deleteHist()" class=" btn  btn-lg row list-group-item">Remove Selected items</a>
+                <div class="row list-group-item" ng-repeat="n in history.slice().reverse() track by $index">
+                    <input class="checkbox" type="checkbox" ng-model="n.delete" />
+                    <div class="panel-group" id="history{{ $index}}">
+                        <div class="panel panel-default" >
+                            <div class="panel-heading" toggle target="hist{{ $index}}">
+                                <h4 class="panel-title">
+                                    <strong>Voltage: </strong><span ng-bind="n.volt"></span> <span >{{ unit.volt.suffux}}</span>
+                                    <strong>Amps: </strong><span ng-bind="n.amp"></span> <span>{{ unit.amp.suffux}}</span>
+                                    <strong>Watts: </strong><span ng-bind="n.watt"></span> <span >{{ unit.watt.suffux}}</span>
+                                    <strong>Resistance (Ohm): </strong><span ng-bind="n.ohm"></span> <span >{{ unit.ohm.suffux}}</span>
+                                </h4>
+                            </div>
+                            <div id="hist{{ $index}}" toggleable active-class="in"  class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col-xs-6 ">
+                                        <h4>Solve for WAV</h4>
+                                        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                                          <mtable columnalign="left">
+                                            <mtr><mtd>
+                                            <mtext>{{ unit.watt.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mtext>{{ unit.amp.label}}</mtext>
+                                            <mo>x</mo>
+                                            <mtext>{{ unit.volt.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.amp">{{ n.amp}}</mn> <mtext>{{ unit.amp.suffux}}</mtext>
+                                            <mo>x</mo>
+                                            <mn ng-bind="n.volt">{{ n.volt}}</mn> <mtext>{{ unit.volt.suffux}}</mtext>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.watt">{{ n.watt}}</mn> <mtext>{{ unit.watt.suffux}}</mtext>
+                                          </mtd></mtr>
+                                          <mtr><mtd></mtd></mtr>
+                                          <mtr><mtd>
+                                            <mtext>{{ unit.amp.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mtext>{{ unit.watt.label}}</mtext>
+                                              <mtext>{{ unit.volt.label}}</mtext>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mrow><mn ng-bind="n.watt">{{ n.watt}}</mn> <mtext>{{ unit.watt.suffux}}</mtext></mrow>
+                                              <mrow><mn ng-bind="n.volt">{{ n.volt}}</mn> <mtext>{{ unit.volt.suffux}}</mtext></mrow>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.amp">{{ n.amp}}</mn> <mtext>{{ unit.amp.suffux}}</mtext>
+                                          </mtd></mtr>
+                                          <mtr><mtd></mtd></mtr>
+                                          <mtr><mtd>
+                                            <mtext>{{ unit.volt.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mtext>{{ unit.watt.label}}</mtext>
+                                              <mtext>{{ unit.amp.label}}</mtext>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mrow><mn ng-bind="n.watt">{{ n.watt}}</mn> <mtext>{{ unit.watt.suffux}}</mtext></mrow>
+                                              <mrow><mn ng-bind="n.amp">{{ n.amp}}</mn> <mtext>{{ unit.amp.suffux}}</mtext></mrow>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.volt">{{ n.volt}}</mn> <mtext>{{ unit.volt.suffux}}</mtext>
+                                          </mtd></mtr>
+                                        </mtable>
+                                        </math>
+                                    </div>
+
+                                    <div class="col-xs-6 ">
+                                        <h4>Solve for VAR</h4>
+                                        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                                          <mtable columnalign="left">
+                                            <mtr><mtd>
+                                            <mtext>{{ unit.volt.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mtext>{{ unit.amp.label}}</mtext>
+                                            <mo>x</mo>
+                                            <mtext>{{ unit.ohm.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.amp">{{ n.amp}}</mn> <mtext>{{ unit.amp.suffux}}</mtext>
+                                            <mo>x</mo>
+                                            <mn ng-bind="n.ohm">{{ n.ohm}}</mn> <mtext>{{ unit.ohm.suffux}}</mtext>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.volt">{{ n.volt}}</mn> <mtext>{{ unit.volt.suffux}}</mtext>
+                                          </mtd></mtr>
+                                          <mtr><mtd> </mtd></mtr>
+                                          <mtr><mtd>
+                                            <mtext>{{ unit.ohm.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mtext>{{ unit.volt.label}}</mtext>
+                                              <mtext>{{ unit.amp.label}}</mtext>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mrow><mn ng-bind="n.volt">{{ n.volt}}</mn> <mtext>{{ unit.volt.suffux}}</mtext></mrow>
+                                              <mrow><mn ng-bind="n.amp">{{ n.amp}}</mn> <mtext>{{ unit.amp.suffux}}</mtext></mrow>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.ohm">{{ n.ohm}}</mn> <mtext>{{ unit.ohm.suffux}}</mtext>
+                                          </mtd></mtr>
+                                          <mtr><mtd> </mtd></mtr>
+                                          <mtr><mtd>
+                                            <mtext>{{ unit.amp.label}}</mtext>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mtext>{{ unit.volt.label}}</mtext>
+                                              <mtext>{{ unit.ohm.label}}</mtext>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mfrac>
+                                              <mrow><mn ng-bind="n.volt">{{ n.volt}}</mn> <mtext>{{ unit.volt.suffux}}</mtext></mrow>
+                                              <mrow><mn ng-bind="n.ohm">{{ n.ohm}}</mn> <mtext>{{ unit.ohm.suffux}}</mtext></mrow>
+                                            </mfrac>
+                                            <mo>=</mo>
+                                            <mn ng-bind="n.amp">{{ n.amp}}</mn> <mtext>{{ unit.amp.suffux}}</mtext>
+                                          </mtd></mtr>
+                                        </mtable>
+                                        </math>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

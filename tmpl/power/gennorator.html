@@ -1,0 +1,38 @@
+<div  ng-controller="gennie">
+    <div class="scrollable">
+        <div class="scrollable-content">
+            <div class="list-group">
+                <div class="row list-group-item"><h4 class="panel-title">Do i need a Power Generator?</h4></div>
+
+                <div class="row list-group-item">
+                    <label >{{ unit.volt.label}}</label>
+                    <input  ng-model="volt" id="{{ unit.volt.id}}" ng-change="check_num()" type="number" value="0"/>
+                    <label >{{ unit.amp.label}}</label>
+                    <input ng-model="amp" id="{{ unit.amp.id}}" ng-change="check_num()" type="number" value="0"/>
+                    <label>Note: </label>
+                    <input type="text" ng-model="note" id="note" />
+                </div>
+
+                <a href="" ng-click="solve()" class="btn  btn-lg row list-group-item">Solve</a>
+                <a href="" ng-click="deleteHist()" class="btn  btn-lg row list-group-item">Remove Selected items</a>
+
+                <div class="row list-group-item">
+                    <span class="col-xs-1 powered_item "></span>
+                    <span class="col-xs-1 powered_item"><strong>Voltage: </strong></span>
+                    <span class="col-xs-1 powered_item"><strong>Amps: </strong></span>
+                    <span class="col-xs-2 powered_item"><strong>Kilovolt-Ampers: </strong></span>
+                    <span class="col-xs-2 powered_item"><strong>Note: </strong></span>
+                </div>
+
+                <div class="row list-group-item" ng-repeat="n in history.slice().reverse() track by $index">
+                    <span class="col-xs-1 ">                    <input class="checkbox" type="checkbox" ng-model="n.delete" /></span>
+                    <span class="col-xs-1 powered_item"><span ng-bind="n.volt"></span> <span >{{ unit.volt.suffux}}</span></span>
+                    <span class="col-xs-1 powered_item"><span ng-bind="n.amp"></span> <span>{{ unit.amp.suffux}}</span></span>
+                    <span class="col-xs-2 powered_item"><span ng-bind="n.kva"></span> <span >{{ unit.kva.suffux}}</span></span>
+                    <span class="col-xs-2 powered_item" ng-bind="n.note"></span>
+                </div>
+            </div>
+            <!-- -->
+        </div>
+    </div>
+</div>

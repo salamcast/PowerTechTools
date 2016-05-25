@@ -1,0 +1,77 @@
+
+
+.math_division {
+    margin: 10px;
+    padding: 10px;
+    width:400px;
+    max-width: 800px;
+    min-width: 300px;
+    font-size: 25px;
+
+}
+.math_top {
+    text-align: center;
+}
+.math_line {
+    background-color: #000000;
+    height: 5px;
+    width: 100%;
+}
+.math_bottom {
+    text-align: center;
+}
+
+.math_bottom span {
+    width: 33px;
+    max-width: 80px;
+    min-width: 30px;
+}
+
+form {
+
+}
+
+label {
+    margin: 5px;
+    padding: 5px;
+    width: 100px;
+    text-align: right;
+
+}
+
+a {
+    margin: 5px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+ input {
+    margin: 5px;
+    padding: 5px;
+    width: 120px;
+
+     font-size: 16px;
+}
+
+input.checkbox {
+    margin: 5px;
+    padding: 5px;
+    width: 15px;
+    float: left;
+}
+
+.solve {
+    padding: 5px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.powered_item {
+
+    padding: 9px;
+    margin: 0px;
+    text-align: center;
+    font-size: 16px;
+
+}
