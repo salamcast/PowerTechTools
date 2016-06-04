@@ -1,217 +1,11 @@
 /**
  * Created by Karl on 2014-08-15.
  */
-var ptt = angular.module('PowerTech', [
-    "ngRoute",
-    "ngTouch",
-    "mobile-angular-ui"
-]);
-ptt.config(function($routeProvider, $locationProvider) {
-    $routeProvider.when('/', {templateUrl: "tmpl/power/ohm.html"});
-    $routeProvider.when('/ohm', {templateUrl: "tmpl/power/ohm.html"});
-//    $routeProvider.when('/curcuits', {templateUrl: "tmpl/power/curcuits.html"});
-    $routeProvider.when('/gennie', {templateUrl: "tmpl/power/gennorator.html"});
-});
-var $scope = {};
-
-$scope.title = "";
-
-
-ptt.controller('powertools', ['$scope', function($scope) {
-        // calc values
-
-    }]);
-
-ptt.controller('curcuits', ['$scope', function($scope) {
-        // values for form
-        var items = 'devices';
-        var p = new powertool();
-
-        $scope.pitem = p.ohmslaw.forms.curcuit_items;
-
-
-
-        $scope.powered_items = dbh5.getPage(items);
-
-        $scope.addItem = function() {
-            if ($scope.pitem.id.new !== "" && $scope.pitem.pgroup.new !== '' && $scope.pitem.volt.new > 0 && $scope.pitem.amp.new > 0 && $scope.pitem.watt.new >= 0) {
-                var update = {
-                    id: $scope.pitem.id.new,
-                    pgroup: $scope.pitem.pgroup.new,
-                    volt: $scope.pitem.volt.new,
-                    amp: $scope.pitem.amp.new,
-                    watt: $scope.pitem.watt.new,
-                    delete: false
-                };
-                $scope.powered_items.push(update);
-
-                $scope.pitem.id.new = "";
-                $scope.pitem.pgroup.new = "";
-                $scope.pitem.volt.new = 0;
-                $scope.pitem.amp.new = 0;
-                $scope.pitem.watt.new = 0;
-
-                dbh5.setPage(items, $scope.powered_items);
-            }
-        };
-        $scope.deleteItem = function() {
-            var update = [];
-            angular.forEach($scope.powered_items, function(i) {
-                if (!i.delete) {
-                    update.push(i);
-                }
-            });
-
-            dbh5.setPage(items, update);
-            $scope.powered_items = update;
-        };
-
-        ///
-    }]);
-
-
-ptt.controller('ohmslaw', ['$scope', function($scope) {
-        // calc values
-
-
-        var p = new powertool();
-        $scope.history = dbh5.getPage("ohmslaw");
-
-        $scope.update_form = function(data) {
-            $scope.volt = data.volt;
-            $scope.amp = data.amp;
-            $scope.watt = data.watt;
-            $scope.ohm = data.ohm;
-            return true;
-        };
-        $scope.zero_calc = function() {
-            $scope.work = false;
-            p.reset();
-            $scope.update_form(p.data());
-            return true;
-        };
-
-        $scope.zero_calc();
-        $scope.solve = false;
-        $scope.unit = p.units;
-
-
-        $scope.check_num = function() {
-            $scope.volt = p.check($scope.volt);
-            $scope.amp = p.check($scope.amp);
-            $scope.watt = p.check($scope.watt);
-            $scope.ohm = p.check($scope.ohm);
-        };
-
-        $scope.deleteHist = function() {
-            var update = [];
-            angular.forEach($scope.history, function(c) {
-                if (!c.delete) {
-                    update.push(c);
-                }
-            });
-
-            dbh5.setPage("ohmslaw", update);
-            $scope.history = update;
-            return true;
-        };
-
-        $scope.solve = function() {
-            $scope.work = true;
-
-            var data = p.ohmslaw.solve($scope.volt, $scope.amp, $scope.ohm, $scope.watt);
-
-            var update = {
-                volt: data.volt,
-                amp: data.amp,
-                watt: data.watt,
-                ohm: data.ohm,
-                delete: false
-            };
-            $scope.history.push(update);
-
-            dbh5.setPage("ohmslaw", $scope.history);
-            $scope.zero_calc();
-
-            return true;
-        };
-        
-    }]);
-
-
-
-
-ptt.controller('gennie', ['$scope', function($scope) {
-        // calc values
-
-        var p = new powertool();
-        $scope.history = dbh5.getPage("gennie");
-
-        $scope.update_form = function(data) {
-            $scope.volt = data.volt;
-            $scope.amp = data.amp;
-            $scope.kva = data.kva;
-            $scope.note = data.note;
-            return true;
-        };
-        $scope.zero_calc = function() {
-            $scope.work = false;
-            p.reset();
-            $scope.note="";
-            $scope.update_form(p.data());
-            return true;
-        };
-
-        $scope.zero_calc();
-        $scope.solve = false;
-        $scope.unit = p.units;
-
-
-        $scope.check_num = function() {
-            $scope.volt = p.check($scope.volt);
-            $scope.amp = p.check($scope.amp);
-        };
-
-        $scope.deleteHist = function() {
-            var update = [];
-            angular.forEach($scope.history, function(c) {
-                if (!c.delete) {
-                    update.push(c);
-                }
-            });
-
-            dbh5.setPage("gennie", update);
-            $scope.history = update;
-            return true;
-        };
-
-        $scope.solve = function() {
-            $scope.work = true;
-            p.volt = $scope.volt;
-            p.amp = $scope.amp;
-            p.ppgen.solve();
-            var data = p.data();
-
-            var update = {
-                volt: data.volt,
-                amp: data.amp,
-                kva: data.kva,
-                note: $scope.note,
-                delete: false
-            };
-            $scope.history.push(update);
-            dbh5.setPage("gennie", $scope.history);
-            $scope.zero_calc();
-            return true;
-        };
-
-    }]);
 
 
 
 /**
  * Power Tools javascript class
- * -part of the gig tools webapps
  */
 function powertool() {
     var self = this;
@@ -225,11 +19,11 @@ function powertool() {
 
     self.data = function() {
         return {
-            volt: self.volt,
-            amp: self.amp,
-            ohm: self.ohm,
-            watt: self.watt,
-            kva: self.kva
+            volt: Math.round(self.volt * 100) / 100,
+            amp: Math.round(self.amp * 100) / 100,
+            ohm: Math.round(self.ohm * 100) / 100,
+            watt: Math.round(self.watt * 100) / 100,
+            kva: Math.round(self.kva * 100) / 100
         };
     };
     self.reset = function() {
@@ -423,5 +217,34 @@ function powertool() {
     /*
      Will need to add other calculators functions
      */
+
+
+    /**
+     * MathML stuff, not using MathML then don't worry about it
+
+     based on
+     https://github.com/yonibaciu/ngMathJax/blob/master/ngMathJax.js.coffee
+     ngMathJax
+     Renders MathML using an AngularJS direcive
+
+     Just add the directive to your project and then in any element that
+     contains MathML add the ng-math-jax property.
+
+     The directive option didn't work for me
+     */
+    this.math = {
+      view: function() {
+        m = document.getElementsByTagName("math");
+        if (m.length > 0)
+          if (!window.MathJax)
+            getScript('https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+              angular.forEach(m, function(e) { MathJax.Hub.Queue(["Typeset",MathJax.Hub, e]) });
+            });
+          else
+            angular.forEach(m, function(e) { MathJax.Hub.Queue(["Typeset",MathJax.Hub, e])
+        });
+      }
+    }
+
 }
 ;

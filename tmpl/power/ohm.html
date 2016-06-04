@@ -1,4 +1,4 @@
-<div  ng-controller="ohmslaw">
+<div  ng-controller="ohmslaw" >
     <div class="scrollable">
         <div class="scrollable-content">
             <div class="list-group">
@@ -20,12 +20,12 @@
                 </div>
                 <a href="" ng-click="solve()" class="btn  btn-lg row list-group-item">Solve</a>
                 <a href="" ng-click="deleteHist()" class=" btn  btn-lg row list-group-item">Remove Selected items</a>
-                <div class="row list-group-item" ng-repeat="n in history.slice().reverse() track by $index">
+                <div class="row list-group-item" ng-repeat="n in history.slice() track by $index">
                     <input class="checkbox" type="checkbox" ng-model="n.delete" />
                     <div class="panel-group" id="history{{ $index}}">
                         <div class="panel panel-default" >
                             <div class="panel-heading" toggle target="hist{{ $index}}">
-                                <h4 class="panel-title">
+                                <h4 class="panel-title" ng-click="mathview()">
                                     <strong>Voltage: </strong><span ng-bind="n.volt"></span> <span >{{ unit.volt.suffux}}</span>
                                     <strong>Amps: </strong><span ng-bind="n.amp"></span> <span>{{ unit.amp.suffux}}</span>
                                     <strong>Watts: </strong><span ng-bind="n.watt"></span> <span >{{ unit.watt.suffux}}</span>
@@ -36,6 +36,7 @@
                                 <div class="panel-body">
                                     <div class="col-xs-6 ">
                                         <h4>Solve for WAV</h4>
+
                                         <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
                                           <mtable columnalign="left">
                                             <mtr><mtd>
@@ -89,6 +90,7 @@
 
                                     <div class="col-xs-6 ">
                                         <h4>Solve for VAR</h4>
+
                                         <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
                                           <mtable columnalign="left">
                                             <mtr><mtd>
