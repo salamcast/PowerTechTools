@@ -1,9 +1,12 @@
 # Power Tech Tools
 
 This tools was created as a way of re-enforcing what I learned in my power technician
-training with current employer around a year ago or so.  
+training with current employer around a year ago or so (2014-08-15).  
 This is also my first attempt at writing an angularjs based javascript class with [MathML](https://developer.mozilla.org/en-US/docs/Web/MathML) to represent the different variations of solving for WAV [Watts, Amps, Volts] and VAR [ Volts, Amps, Resistance ].
-This WebApp also uses the browsers local storage to store a history of your power calculations in JSON format.  
+This WebApp also uses the browsers local storage to store a history of your power calculations in JSON format.
+
+# Warning
+Please **work safe** when working with power or other hazardous tasks; This tools is only for __educational reference__ for learning about Power and the Math related to it. Thank you 
 
 ## Testing so far
 
