@@ -27,5 +27,5 @@ This is a work in progress, if you have any ideas you can email me, with the pro
 
 For examples on howto use this class just look at the last script tag in the index.html,  it will show the class in action within the angularjs controllers.  I have seperated the angularjs display code from the powertech.js file so it can be reused in other projects; ofcourse you'll also need to have angularjs included for everything to work.
 
-> var p = new powertool();
-> var data = p.ohmslaw.solve($volt, $amp, $ohm, $watt);
+    var p = new powertool();
+    var data = p.ohmslaw.solve($volt, $amp, $ohm, $watt);
