@@ -6,7 +6,7 @@ This is also my first attempt at writing an angularjs based javascript class wit
 This WebApp also uses the browsers local storage to store a history of your power calculations in JSON format.
 
 # Warning
-Please **work safe** when working with power or other hazardous tasks; This tools is only for __educational reference__ for learning about Power and the Math related to it. Thank you 
+Please **work safe** when working with power or other hazardous tasks; This tools is only for __educational reference__ for learning about Power and the Math related to it. Thank you! 
 
 ## Testing so far
 
